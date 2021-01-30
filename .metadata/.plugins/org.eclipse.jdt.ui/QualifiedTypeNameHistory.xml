@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="oracle.jdbc.OracleConnection"/>
+    <fullyQualifiedTypeName name="oracle.jdbc.pool.OracleDataSource"/>
+    <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpUtils"/>
+    <fullyQualifiedTypeName name="com.kh.simdo.test.member.model.vo.Member"/>
+</qualifiedTypeNameHistroy>
