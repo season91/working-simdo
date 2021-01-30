@@ -148,79 +148,35 @@ body{
 	min-height: 70vh;
 	margin-top: 15vh;
 }
-.mv_view_title{
-	width:100%;
-	background-color: #959493;
-	color:#DADAD9;
-	height: 4vh;
-	position: relative;
-	font-size: 2.5vh;
-	padding-top: 1vh;
-	padding-left: 5vh;
-}
 .mv_wrapper{
 	width:80%;
 	padding-top: 5vh;
 	padding-bottom:10vh;
 	display: flex;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-	height: 100%;
+	flex-direction: column;
+	align-items:center;
 }
 
+.mv_list_wrap{
+	border: 2px solid black;
+	display: flex;
+	height: 30vh;
+	
+}
+.mv_list_wrap>*{
+	border: 2px solid pink;
+}
 
-
-.mv_view_list{
-	height:45vh;
+.mv_list_left-wrap{
 	display: flex;
 	flex-direction: column;
-	width: 24vh;
 	justify-content: space-between;
-	background-color: rgba(255,255,255,0.2);
-	padding: 10px;
-	margin: 15px;
-	border-radius: 10px;
-	border-style:outset;
-	box-shadow: 4px 4px 2px 1px gray;
-	transition-duration:0.5s;
-	
+	width: 50vh;
 }
 
-
-.mv_view_list:hover{
-	background-color: white;
-	transform: scale(1.2) translateX(0) translateY(0) rotate(0deg);
-}
-
-.mv_view_img{
-	/* background-image: url("https://t1.daumcdn.net/movie/b2cde8e92bfc811ebb822d5f95a4a710a48c0a4f");
-	background-position: center;
-	background-size : contain;
-	background-repeat : no-repeat; */
+.mv_list_right-wrap{
+	display:flex;
+	justify-content:center;
+	width: 40vh;
 	height: 30vh;
-	width: 100%;
-	display: flex;
-	justify-content: center;
-}
-.mv_view_img>img{
-	height: 30vh;
-	width: 100%;
-	
-}
-.mv_view_text{
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	height: 15vh;
-}
-
-.mv_title{
-	font-size: 2.5vh;
-	font-weight:bold;
-}
-
-.mv_info{
-	position:relative;
-	font-size : 1.5vh;
-	font-weight:bold;
 }

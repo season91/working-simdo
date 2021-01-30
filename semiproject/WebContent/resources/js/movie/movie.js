@@ -15,6 +15,7 @@
 	
 	let createElement = (nation)=>{
 		let div = document.createElement('div');
+		
 		div.className = 'navi-extend-wrapper';
 		let ul = document.createElement('ul');
 		
@@ -27,7 +28,9 @@
 			li.appendChild(a);
 			ul.appendChild(li);
 		}
+		
 		div.append(ul);
+		div.style.transitionDuration = '1s';
 		list.appendChild(div);
 	}
 	
