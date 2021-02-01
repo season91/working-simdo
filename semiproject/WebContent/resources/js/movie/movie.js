@@ -4,13 +4,13 @@
 	
 	
 	let nationExtendView = ()=>{
-		let nation = ['한국','일본','미국','홍콩','영국','프랑스','중국','러시아','독일','스페인'];
+		let nation = ['한국','일본','미국','영국','프랑스','중국','러시아','독일','스페인'];
 		createElement(nation);
 	}
 	
-	let yearExtendView = ()=>{
-		let year = ['1950년대','1960년대','1970년대','1980년대','1990년대','2000년대','2010년대','2020년대'];
-		createElement(year);
+	let genreExtendView = ()=>{
+		let genre = ['드라마','액션','스릴러','가족','SF','판타지'];
+		createElement(genre);
 	}
 	
 	let createElement = (nation)=>{
@@ -57,7 +57,7 @@
 	
 	document.querySelector('.year-view').addEventListener('click',()=>{
 		if(check == 'no'){
-			yearExtendView('연도별 조회 테스트');
+			genreExtendView();
 			check = 'yes';
 		} else {
 			delView();
