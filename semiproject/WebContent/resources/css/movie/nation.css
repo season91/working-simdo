@@ -190,6 +190,7 @@ body{
 .mv_view_list:hover{
 	background-color: white;
 	transform: scale(1.2) translateX(0) translateY(0) rotate(0deg);
+
 }
 
 .mv_view_img{

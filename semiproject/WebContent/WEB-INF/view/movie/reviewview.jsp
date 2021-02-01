@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/include/head.jsp"%>
 <head>
 <link rel="stylesheet" href="${context}/resources/css/common/reset.css">
-<link rel="stylesheet" href="${context}/resources/css/movie/score.css">
+<link rel="stylesheet" href="${context}/resources/css/movie/review.css">
 <link rel="stylesheet" href="${context}/resources/css/all.css">
 
 </head>
@@ -61,8 +61,8 @@
 			<div class="mv_list_wrap">
 				<div class="mv_list_left-wrap">
 					<div class="mv_list_top-wrap">
-						<div class="mv_title">작은 아씨들</div>
-						<div class="mv_btn-more">MORE</div>
+						<div class="mv_title" name="작은 아씨들">작은 아씨들</div>
+						<a class="mv_btn-more" href="/movie/detailview.do">MORE</a>
 					</div>
 					<div class="mv_list_middle-wrap">
 						<span>심도들의 후기</span>
@@ -85,6 +85,35 @@
 					<img src="https://movie-phinf.pstatic.net/20200309_102/1583733575200NVLwA_JPEG/movie_image.jpg">
 				</div>
 			</div>
+			
+			<div class="mv_list_wrap">
+				<div class="mv_list_left-wrap">
+					<div class="mv_list_top-wrap">
+						<div class="mv_title" name="작은 아씨들">작은 아씨들</div>
+						<a class="mv_btn-more" href="/movie/detailview.do">MORE</a>
+					</div>
+					<div class="mv_list_middle-wrap">
+						<span>심도들의 후기</span>
+					<%-- 후기결과도 여기에 더붙는다. --%>
+						<div class="mv_reviewlist_wrap">
+							<div class="name">코끼리님</div>
+							<div class="reivew">네 자매간 각각 다른 가치관이 재미있었고 제가 장녀라 그런지 메그를 특히 응원하게 되었어요! 모든 K장녀 화이팅입니다!</div>
+						</div>
+					</div>
+					<div class="mv_list_bottom-wrap">
+						<span>심도들의 기억에 남는 명대사</span>
+						<div class="mv_fmslinelist_wrap">
+							<div class="name">칸타타님</div>
+							<div class="reivew">Women, they have minds, and they have souls, as well as just hearts. And they've got ambition, and they've got talent, as well as beauty, and I'm so sick of people saying that love is just all a woman is fit for. I'm so sick of it!</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="mv_list_right-wrap">
+					<img src="https://movie-phinf.pstatic.net/20200309_102/1583733575200NVLwA_JPEG/movie_image.jpg">
+				</div>
+			</div>
+			
 		</div>
 	</div>
 

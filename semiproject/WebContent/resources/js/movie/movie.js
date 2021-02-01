@@ -20,20 +20,24 @@
 		let ul = document.createElement('ul');
 		
 		for(let i = 0; i < nation.length; i++){
-			let li = document.createElement('li');
-			li.className = "navi-extend-list";
 			let a = document.createElement('a');
-			a.href = location.reload;
+			a.className = "navi-extend-list";
 			a.innerHTML = nation[i];
-			li.appendChild(a);
-			ul.appendChild(li);
+			a.href = "/movie/nationview.do";
+			a.name = nation[i];
+			ul.appendChild(a);
+			
+			console.dir(a.name);
 		}
 		
 		div.append(ul);
 		div.style.transitionDuration = '1s';
 		list.appendChild(div);
+		
+		
 	}
 	
+
 
 	let delView = () =>{
 		document.querySelector('.navi-extend-wrapper').outerHTML = '';
@@ -60,5 +64,5 @@
 			check = 'no';
 		}
 	});
-
+	
 })();
