@@ -36,7 +36,7 @@
 		<nav class="navi">
 			<div class="navi-wrapper">
 				<div class="nation-view">나라별</div>
-				<div class="year-view">연도별</div>
+				<div class="genre-view">장르별</div>
 				<div class="score-view">
 					<a>평점순</a>
 				</div>
