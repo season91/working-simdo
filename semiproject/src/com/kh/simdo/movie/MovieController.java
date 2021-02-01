@@ -30,7 +30,7 @@ public class MovieController extends HttpServlet {
 		switch(uriArr[uriArr.length-1]) {
 		case "db.do" : setDB(request,response); break;
 		case "nationview.do" : request.getRequestDispatcher("/WEB-INF/view/movie/nationview.jsp").forward(request, response); break;
-		case "scoreview.do" : request.getRequestDispatcher("/WEB-INF/view/movie/scoreview.jsp").forward(request, response); break;
+		case "reviewview.do" : request.getRequestDispatcher("/WEB-INF/view/movie/reviewview.jsp").forward(request, response); break;
 		case "detailview.do" : request.getRequestDispatcher("/WEB-INF/view/movie/detailview.jsp").forward(request, response); break;
 		}
 	}

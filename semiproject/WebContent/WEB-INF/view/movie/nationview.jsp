@@ -66,7 +66,7 @@
 				<div class="mv_view_text">
 					<p class="mv_title">결백</p>
 					<p class="mv_info">한국 / 아무개 감독</p>
-					<a class="mv_readmore"> 더보기</a>
+					<a class="mv_readmore" href="/movie/detailview.do"> 더보기</a>
 				</div>
 			</div>
 			<div class="mv_view_list">
