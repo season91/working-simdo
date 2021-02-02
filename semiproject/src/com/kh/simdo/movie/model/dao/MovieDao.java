@@ -15,21 +15,54 @@ import com.kh.simdo.movie.model.vo.Movie;
 public class MovieDao {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
+	//영화 상세조회
+	public List<Movie> selectDetail(Connection conn, String title){
+		List<Movie> res = new ArrayList<Movie>();
+		Movie movie = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		try {
+			String sql = "select * from  mv_basic_info where mv_title = ?";
+			pstm = conn.prepareStatement(sql);
+			pstm.setString(1, title);
+			rset = pstm.executeQuery();
+			while(rset.next()) {
+				movie = new Movie();
+				movie.setMvTitle(rset.getString("mv_title"));
+				movie.setScore(rset.getInt("score"));
+				movie.setDirector(rset.getString("director"));
+				movie.setGenre(rset.getString("genre"));
+				movie.setReleaseDate(rset.getDate("release_date"));
+				movie.setNation(rset.getString("nation"));
+				movie.setRuntime(rset.getInt("runtime"));
+				movie.setPlot(rset.getString("plot"));
+				movie.setRating(rset.getString("rating"));
+				movie.setPoster(rset.getString("poster"));
+				res.add(movie);
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(ErrorCode.SM01, e);
+		} finally {
+			jdt.close(rset, pstm);
+		}
+		return res;
+	}
+	
 	//나라별 조회
 	public List<Movie> selectNation(Connection conn, String nation){
 		List<Movie> res = new ArrayList<Movie>();
 		Movie movie = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		System.out.println("다오");
 
+		
 		try {
 			String sql = "select * from  mv_basic_info where nation like '%"+nation+"%'";
 			pstm = conn.prepareStatement(sql);
 			rset = pstm.executeQuery();
 			while(rset.next()) {
 				movie = new Movie();
-				movie.setMvNo(rset.getString("mv_no"));
 				movie.setMvTitle(rset.getString("mv_title"));
 				movie.setScore(rset.getInt("score"));
 				movie.setDirector(rset.getString("director"));
@@ -66,7 +99,6 @@ public class MovieDao {
 			
 			while(rset.next()) {
 				movie = new Movie();
-				movie.setMvNo(rset.getString("mv_no"));
 				movie.setMvTitle(rset.getString("mv_title"));
 				movie.setScore(rset.getInt("score"));
 				movie.setDirector(rset.getString("director"));
@@ -74,7 +106,6 @@ public class MovieDao {
 				movie.setReleaseDate(rset.getDate("release_date"));
 				movie.setNation(rset.getString("nation"));
 				movie.setRuntime(rset.getInt("runtime"));
-				movie.setPlot(rset.getString("plot"));
 				movie.setRating(rset.getString("rating"));
 				movie.setPoster(rset.getString("poster"));
 				res.add(movie);
@@ -84,7 +115,7 @@ public class MovieDao {
 		} finally {
 			jdt.close(rset, pstm);
 		}
-		
+		System.out.println(res);
 		return res;
 	}
 

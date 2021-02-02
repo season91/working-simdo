@@ -72,10 +72,10 @@ public class MovieController extends HttpServlet {
 	}
 	
 	protected void readMore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String searchTitle = request.getParameter("title");
-		
+		String title = request.getParameter("title");
 		// 영화 제목으로 영화정보 받아오기
-		List<Movie> detailRes = movieService.selectSearchTitle(searchTitle.trim());
+		// 제목검색이랑 같이쓰려고했는데, 제목검색부분은 너프한기준이고 여기는 딱맞게 1개여애해서 따로 dao생성하기로 결심
+		List<Movie> detailRes = movieService.selectDetail(title);
 		List movieList = parseJson(detailRes);
 		System.out.println(movieList);
 		request.setAttribute("res", movieList);
