@@ -27,7 +27,7 @@ import com.kh.simdo.movie.model.vo.Movie;
 public class MovieController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	MovieService MovieService = new MovieService();
+	MovieService movieService = new MovieService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -48,23 +48,16 @@ public class MovieController extends HttpServlet {
 
 		
 		switch (uriArr[uriArr.length - 1]) {
-		case "db.do":
-			setDB(); break;
-		case "nationview.do":
-			searchNation(request, response); break;
+		case "db.do": setDB(); break;
+		case "nationview.do": searchNation(request, response); break;
 		case "scoreview.do":
 			request.getRequestDispatcher("/WEB-INF/view/movie/scoreview.jsp").forward(request, response);
 			break;
 		case "reviewview.do":
 			request.getRequestDispatcher("/WEB-INF/view/movie/reviewview.jsp").forward(request, response);
 			break;
-		case "detailview.do":
-			//readMore(request, response);
-			request.getRequestDispatcher("/WEB-INF/view/movie/detailview.jsp").forward(request, response);
-			break;
-		case "searchview.do":
-			searchTitle(request, response);
-			break;
+		case "detailview.do": readMore(request, response); break;
+		case "searchview.do": searchTitle(request, response); break;
 		}
 
 	}
@@ -73,37 +66,52 @@ public class MovieController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 	
-	protected void searchNation(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		String param = request.getParameter("nation");
+	protected void readMore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String searchTitle = request.getParameter("title");
 		
+		// 영화 제목으로 영화정보 받아오기
+		List<Movie> detailRes = movieService.selectSearchTitle(searchTitle.trim());
+		List movieList = parseJson(detailRes);
+		System.out.println(movieList);
+		request.setAttribute("res", movieList);
+		request.getRequestDispatcher("/WEB-INF/view/movie/detailview.jsp").forward(request, response);
+	}
+	
+	
+	protected List parseJson(List<Movie> res) {
+		List list = new ArrayList();
+		Map<String, Object> commandMap = new HashMap<String, Object>();
+		for (int i = 0; i < res.size(); i++) {
+			String json = new Gson().toJson(res.get(i));
+			commandMap = new Gson().fromJson(json, Map.class);
+			list.add(commandMap);
+		}
+		return list;
+	}
+
+	
+	protected void searchNation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String nation = request.getParameter("nation");
+		List<Movie> nationRes = movieService.selectNation(nation);
+		List movieList = parseJson(nationRes);
+		request.setAttribute("res", movieList);
 		request.getRequestDispatcher("/WEB-INF/view/movie/nationview.jsp").forward(request, response);
 	}
 
-
+	
 	protected void searchTitle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String searchTitle = request.getParameter("search");
 
 		// 영화정보 받아오기 
-		List<Movie> searchRes = MovieService.selectSearchTitle(searchTitle);
-		Map<String, Object> commandMap = new HashMap<String, Object>();
-		List movieList = new ArrayList();
-		for (int i = 0; i < searchRes.size(); i++) {
-			//list를 json으로
-			String json = new Gson().toJson(searchRes.get(i));
-			//json을 map으로
-			commandMap = new Gson().fromJson(json,Map.class);
-			//map을 jsp로 넘겨준다.
-			movieList.add(commandMap);
-		}
+		List<Movie> searchRes = movieService.selectSearchTitle(searchTitle);
+		List movieList = parseJson(searchRes);
 		
 		request.setAttribute("res", movieList);
 		request.getRequestDispatcher("/WEB-INF/view/movie/searchview.jsp").forward(request, response);
@@ -185,9 +193,9 @@ public class MovieController extends HttpServlet {
 		// 썸네일정보는 달력API에서 동일규격 포스터사이즈를 사용해야하기에 네이버 영화 API 사용
 
 		// KMDB 받은 자료
-		Map<String, Object> movieDB = MovieService.parseDb();
+		Map<String, Object> movieDB = movieService.parseDb();
 		// 네이버 API 받은 자료
-		String thumbnail = MovieService.parseThumb();
+		String thumbnail = movieService.parseThumb();
 		// movie.vo에 넣어주기
 
 		Movie movie = addMovieVo(movieDB, thumbnail);

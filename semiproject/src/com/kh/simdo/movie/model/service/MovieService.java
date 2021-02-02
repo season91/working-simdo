@@ -27,6 +27,19 @@ public class MovieService {
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	MovieDao movieDao = new MovieDao();
 	
+	// 영화 나라별 조회
+	public List<Movie> selectNation(String nation){
+		List<Movie> res = new ArrayList<Movie>();
+		Connection conn = jdt.getConnection();
+		
+		try {
+			res = movieDao.selectNation(conn, nation);
+		} finally {
+			jdt.close(conn);
+		}
+		return res;
+	}
+	
 	// 영화 정보 검색으로 영화정보 조회해서 가져오기.
 	public List<Movie> selectSearchTitle(String searchTitle) {
 		List<Movie> res = new ArrayList<Movie>();

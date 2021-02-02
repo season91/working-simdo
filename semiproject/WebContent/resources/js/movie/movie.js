@@ -23,41 +23,19 @@
 			let a = document.createElement('a');
 			a.className = "navi-extend-list";
 			a.innerHTML = nation[i];
-			a.name = "nation";
-			/* 비동기통신으로 값을 가져와야할듯,,*/
-			a.addEventListener('click',()=>{
-				let nation = a.text;
-				console.dir(nation);
-				let headerObj = new Headers();
-				headerObj.append('Content-Type',"application/x-www-form-urlencoded");
-				
-				let url ="/movie/nationview.do?nation="+nation;
-				if(nation){
-					fetch(url,{
-						method:"get",
-						headers : headerObj
-					}).then(response=>{
-						if(response.ok){
-							console.dir('성공');
-						}
-					})
-				}
-			})
+			a.href = "/movie/nationview.do?nation="+nation[i];
 			ul.appendChild(a);
+
 		}
-		
 		div.append(ul);
-		div.style.transitionDuration = '1s';
 		list.appendChild(div);
-		
-		
+
 	}
 	
-	let searchTitle = ()=>{
-		console.dir('눌름');
+	let test = () =>{
+		console.dir('aa');
 	}
-
-
+	
 	let delView = () =>{
 		document.querySelector('.navi-extend-wrapper').outerHTML = '';
 	}

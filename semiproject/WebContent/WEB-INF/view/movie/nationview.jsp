@@ -57,96 +57,20 @@
 	<div class="content">
 		<div class="mv_view_title">나라별 조회 결과입니다.</div>
 		<div class="mv_wrapper">
+		
 		<%-- 여기서 검색결과 하나씩 출력 --%>
+		<c:forEach var="movie" items="${res}">
 			<div class="mv_view_list">
 				<div class="mv_view_img">
-					<img
-						src="https://t1.daumcdn.net/movie/b2cde8e92bfc811ebb822d5f95a4a710a48c0a4f">
+					<img src="${movie.poster}">
 				</div>
 				<div class="mv_view_text">
-					<p class="mv_title">결백</p>
-					<p class="mv_info">한국 / 아무개 감독</p>
-					<a class="mv_readmore" href="/movie/detailview.do"> 더보기</a>
+					<p class="mv_title">${movie.mvTitle}</p>
+					<p class="mv_info">${movie.nation} / ${movie.director} 감독</p>
+					<a class="mv_readmore" href="/movie/detailview.do?title=${movie.mvTitle}">더보기</a>
 				</div>
 			</div>
-			<div class="mv_view_list">
-				<div class="mv_view_img">
-					<img
-						src="https://movie-phinf.pstatic.net/20200518_153/1589778290753sxMnv_JPEG/movie_image.jpg">
-				</div>
-				<div class="mv_view_text">
-					<p class="mv_title">매드맥스: 분노의 도로 (Mad Max: Fury Road)</p>
-					<p class="mv_info">오스트레일리아 / 조지 밀러 감독</p>
-					<a class="mv_readmore"> 더보기</a>
-				</div>
-			</div>
-			<div class="mv_view_list">
-				<div class="mv_view_img">
-					<img
-						src="https://movie-phinf.pstatic.net/20210106_231/1609898979659CutEz_JPEG/movie_image.jpg">
-				</div>
-				<div class="mv_view_text">
-					<p class="mv_title">#아이엠히어</p>
-					<p class="mv_info">프랑스 / 에릭 라티고 감독</p>
-					<a class="mv_readmore"> 더보기</a>
-				</div>
-			</div>
-			<div class="mv_view_list">
-				<div class="mv_view_img">
-					<img
-						src="https://movie-phinf.pstatic.net/20210114_78/1610588407942CoL2I_JPEG/movie_image.jpg">
-				</div>
-				<div class="mv_view_text">
-					<p class="mv_title">세자매</p>
-					<p class="mv_info">한국 / 이승원 감독</p>
-					<a class="mv_readmore"> 더보기</a>
-				</div>
-			</div>
-			<div class="mv_view_list">
-				<div class="mv_view_img">
-					<img
-						src="https://t1.daumcdn.net/movie/b2cde8e92bfc811ebb822d5f95a4a710a48c0a4f">
-				</div>
-				<div class="mv_view_text">
-					<p class="mv_title">결백</p>
-					<p class="mv_info">한국 / 아무개 감독</p>
-					<a class="mv_readmore"> 더보기</a>
-				</div>
-			</div>
-			<div class="mv_view_list">
-				<div class="mv_view_img">
-					<img
-						src="https://movie-phinf.pstatic.net/20200518_153/1589778290753sxMnv_JPEG/movie_image.jpg">
-				</div>
-				<div class="mv_view_text">
-					<p class="mv_title">매드맥스: 분노의 도로 (Mad Max: Fury Road)</p>
-					<p class="mv_info">오스트레일리아 / 조지 밀러 감독</p>
-					<a class="mv_readmore"> 더보기</a>
-				</div>
-			</div>
-			<div class="mv_view_list">
-				<div class="mv_view_img">
-					<img
-						src="https://movie-phinf.pstatic.net/20210106_231/1609898979659CutEz_JPEG/movie_image.jpg">
-				</div>
-				<div class="mv_view_text">
-					<p class="mv_title">#아이엠히어</p>
-					<p class="mv_info">프랑스 / 에릭 라티고 감독</p>
-					<a class="mv_readmore"> 더보기</a>
-				</div>
-			</div>
-			<div class="mv_view_list">
-				<div class="mv_view_img">
-					<img
-						src="https://movie-phinf.pstatic.net/20210114_78/1610588407942CoL2I_JPEG/movie_image.jpg">
-				</div>
-				<div class="mv_view_text">
-					<p class="mv_title">세자매</p>
-					<p class="mv_info">한국 / 이승원 감독</p>
-					<a class="mv_readmore"> 더보기</a>
-				</div>
-			</div>
-
+		</c:forEach>
 		</div>
 	</div>
 
