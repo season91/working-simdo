@@ -2,7 +2,8 @@ package com.kh.simdo.common.code;
 
 public enum ErrorCode {
 	
-	SM01("회원정보를 조회하는 도중 에러가 발생하였습니다.","/member/login.do"), //select
+	SM01("영화정보 조회 중 에러가 발생했습니다.","/member/login.do"), //select
+	SP01("영화포스터 조회중 에러가 발생했습니다."),
 	IM01("insert중 에러 발생.","/member/join.do"), //insert
 	IB01("게시글 등록 중 에러가 발생했습니다."),
 	SB01("게시글 정보를 조회하는 도중 에러가 발생하였습니다"),
@@ -16,7 +17,8 @@ public enum ErrorCode {
 	MAIL01("메일 발송 중 에러가 발생했습ㅂ니다."),
 	API01("API통신 도중 에러가 발생하였습니다."),
 	CD_404("존재하지 않는 경로입니다."),
-	FILE01("파일업로드 중 예외가 발생하였습니다.");
+	FILE01("파일업로드 중 예외가 발생하였습니다."),
+	;
 	
 	//reslut.jsp를 사용해 띄울 안내문구
 	private String errMsg;

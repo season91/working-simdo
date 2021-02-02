@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.simdo.movie.model.service.MovieService;
 import com.kh.simdo.movie.model.vo.Movie;
-import com.kh.simdo.movie.model.vo.Poster;
+
 
 /**
  * Servlet implementation class MovieController
@@ -24,6 +26,8 @@ import com.kh.simdo.movie.model.vo.Poster;
 @WebServlet("/movie/*")
 public class MovieController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	MovieService MovieService = new MovieService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -37,6 +41,73 @@ public class MovieController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		String uri = request.getRequestURI();
+		String[] uriArr = uri.split("/");
+
+		
+		switch (uriArr[uriArr.length - 1]) {
+		case "db.do":
+			setDB(); break;
+		case "nationview.do":
+			searchNation(request, response); break;
+		case "scoreview.do":
+			request.getRequestDispatcher("/WEB-INF/view/movie/scoreview.jsp").forward(request, response);
+			break;
+		case "reviewview.do":
+			request.getRequestDispatcher("/WEB-INF/view/movie/reviewview.jsp").forward(request, response);
+			break;
+		case "detailview.do":
+			//readMore(request, response);
+			request.getRequestDispatcher("/WEB-INF/view/movie/detailview.jsp").forward(request, response);
+			break;
+		case "searchview.do":
+			searchTitle(request, response);
+			break;
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+	
+	protected void searchNation(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String param = request.getParameter("nation");
+		
+		request.getRequestDispatcher("/WEB-INF/view/movie/nationview.jsp").forward(request, response);
+	}
+
+
+	protected void searchTitle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String searchTitle = request.getParameter("search");
+
+		// 영화정보 받아오기 
+		List<Movie> searchRes = MovieService.selectSearchTitle(searchTitle);
+		Map<String, Object> commandMap = new HashMap<String, Object>();
+		List movieList = new ArrayList();
+		for (int i = 0; i < searchRes.size(); i++) {
+			//list를 json으로
+			String json = new Gson().toJson(searchRes.get(i));
+			//json을 map으로
+			commandMap = new Gson().fromJson(json,Map.class);
+			//map을 jsp로 넘겨준다.
+			movieList.add(commandMap);
+		}
+		
+		request.setAttribute("res", movieList);
+		request.getRequestDispatcher("/WEB-INF/view/movie/searchview.jsp").forward(request, response);
+	}
 
 	protected Map<String, Object> listSeparation(Map<String, Object> map, String beforecategory, String aftercategory) {
 		Gson gson = new Gson();
@@ -64,17 +135,6 @@ public class MovieController extends HttpServlet {
 		String transDate = afterFormat.format(tempDate);
 		Date date = Date.valueOf(transDate);
 		return date;
-	}
-
-	protected Poster addPosterVo(Map<String, Object> movieDB, String pstImg) {
-		// 포스터vo 넣어주기
-		// 배열로 분리해주기
-		Poster poster = null;
-
-		poster = new Poster();
-		poster.setMvNo((String) movieDB.get("DOCID"));
-		poster.setPstImg(pstImg);
-		return poster;
 	}
 
 	protected Movie addMovieVo(Map<String, Object> movieDB, String thumbnail) {
@@ -106,75 +166,38 @@ public class MovieController extends HttpServlet {
 		movie.setRuntime(Integer.parseInt((String) movieDB.get("runtime")));
 		movie.setRating((String) movieDB.get("rating"));
 
-		// 네이버 API 영화 썸네일 넣어주기
+		String str = (String) movieDB.get("posters");
+		String[] pstArr = str.split("[|]");
+		movie.setPoster(pstArr[0]);
+		
+		// 2.네이버 API 영화 썸네일 넣어주기
 
 		movie.setThumbnail(thumbnail);
 
 		return movie;
 
 	}
-	
-	
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-		String uri = request.getRequestURI(); 
-		String[] uriArr = uri.split("/");
-		
-		switch(uriArr[uriArr.length-1]) {
-		case "db.do" : setDB(); break;
-		case "nationview.do" : request.getRequestDispatcher("/WEB-INF/view/movie/nationview.jsp").forward(request, response); break;
-		case "scoreview.do" : request.getRequestDispatcher("/WEB-INF/view/movie/scoreview.jsp").forward(request, response); break;
-		case "detailview.do" : request.getRequestDispatcher("/WEB-INF/view/movie/detailview.jsp").forward(request, response); break;
-		}
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
 	protected void setDB() {
-		
+
 		// 여기선 2가지 API를 섞어서 쓸것임
 		// 기본정보는 KMDB를 사용
 		// 썸네일정보는 달력API에서 동일규격 포스터사이즈를 사용해야하기에 네이버 영화 API 사용
-	
-		MovieService MovieService = new MovieService();
+
 		// KMDB 받은 자료
 		Map<String, Object> movieDB = MovieService.parseDb();
 		// 네이버 API 받은 자료
 		String thumbnail = MovieService.parseThumb();
 		// movie.vo에 넣어주기
-	
+
 		Movie movie = addMovieVo(movieDB, thumbnail);
-		System.out.println(movie);
+		//System.out.println(movie);
 		// DB에 movie넣는걸 성공했다면 성공알람 실패시 실패 알람
-	//	int movieRes = MovieService.insertInfo(movie);
-	//	if (movieRes > 0) {
-	//		System.out.println("movie성공");
-	//	} else {
-	//		System.out.println("movie실패");
-	//	}
-		
-		// poster.vo에 넣어주고 DB에 넣는걸 성공했다면 성공알람 실패시 실패알람
-		String str = (String) movieDB.get("posters");
-		String[] pstArr = str.split("[|]");
-		System.out.println(pstArr);
-	//	Poster poster = null;
-	//	for (int i = 0; i < pstArr.length; i++) {
-	//		poster = addPosterVo(movieDB, pstArr[i]);
-	//		int posterRes = MovieService.insertPoster(poster);
-	//		if (posterRes > 0) {
-	//			System.out.println("poster 성공");
-	//		} else {
-	//			System.out.println("poster 실패");
-	//		}
-	//	}
+//		int movieRes = MovieService.insertMovieInfo(movie);
+//		if (movieRes > 0) {
+//			System.out.println("movie성공");
+//		} else {
+//			System.out.println("movie실패");
+//		}
 	}
 }

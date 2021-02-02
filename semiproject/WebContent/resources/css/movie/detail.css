@@ -83,6 +83,15 @@ body{
 	color: #DADAD9;
 }
 
+.input_navi-search{
+	width: 15vw;
+}
+.search-view{
+	display: flex;
+	align-items: center;
+}
+
+
 /* footer */
 .bottom{
    height:15vh;   

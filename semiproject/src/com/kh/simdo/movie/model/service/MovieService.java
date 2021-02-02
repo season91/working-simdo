@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -16,16 +17,34 @@ import com.kh.simdo.common.jdbc.JDBCTemplate;
 import com.kh.simdo.common.util.http.HttpUtils;
 import com.kh.simdo.movie.model.dao.MovieDao;
 import com.kh.simdo.movie.model.vo.Movie;
-import com.kh.simdo.movie.model.vo.Poster;
-
+/**
+ * 
+ * @author 조아영
+ *
+ */
 public class MovieService {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	MovieDao movieDao = new MovieDao();
 	
+	// 영화 정보 검색으로 영화정보 조회해서 가져오기.
+	public List<Movie> selectSearchTitle(String searchTitle) {
+		List<Movie> res = new ArrayList<Movie>();
+		Connection conn = jdt.getConnection();
+		try {
+			res = movieDao.selectSearchMovie(conn, searchTitle);
+		} finally {
+			jdt.close(conn);
+		}
+	
+		return res;
+	}
+	
+	
+	// KMDB와 통신하는 메서드
 	public Map<String, Object> parseDb() {
 		HttpUtils utils = new HttpUtils();
-		String url = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?ServiceKey=RLYJPR31F2X100MT6HX3&actor=이정재&collection=kmdb_new2&detail=Y&query=황정민";
+		String url = "http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?ServiceKey=RLYJPR31F2X100MT6HX3&listCount=1&actor=로버트패틴슨&collection=kmdb_new2&detail=Y&query=크리스틴스튜어트&startCount=4";
 		String jsonRes = utils.get(url);
 		//System.out.println(jsonRes);
 		Gson gson = new Gson();
@@ -45,6 +64,7 @@ public class MovieService {
 		
 	}
 
+	// 네이버 API와 통신하는 메서드
 	public String parseThumb() {
 		HttpUtils util = new HttpUtils();
 		String clientId = "1TOE19GYAcgawcD0ESm1";
@@ -53,12 +73,12 @@ public class MovieService {
 		String title = null;
 
 		try {
-			title = URLEncoder.encode("뉴뮤턴트", "UTF-8");
+			title = URLEncoder.encode("브레이킹던", "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			throw new RuntimeException("검색어 인코딩 실패", e);
 		}
 
-		String apiURL = "https://openapi.naver.com/v1/search/movie.json?query=" + title +"&yearfrom=2010&yearto=2020"; // json 결과
+		String apiURL = "https://openapi.naver.com/v1/search/movie.json?query=" + title +"&yearfrom=2012&yearto=2013"; // json 결과
 
 		// String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text;
 
@@ -78,11 +98,11 @@ public class MovieService {
 		return thumb;
 	}
 	
-	public int insertInfo(Movie movie) {
+	public int insertMovieInfo(Movie movie) {
 		Connection conn =jdt.getConnection();
 		int res = 0;
 		try {
-			res = movieDao.insertInfo(conn, movie);
+			res = movieDao.insertMovieInfo(conn, movie);
 			jdt.commit(conn);
 		} catch (DataAccessException e) {
 			jdt.rollback(conn);
@@ -96,22 +116,4 @@ public class MovieService {
 		return res;
 	}
 
-	public int insertPoster(Poster poster) {
-		Connection conn = jdt.getConnection();
-		
-		int res = 0;
-		try {
-			
-			res = movieDao.insertPoster(conn, poster);
-			jdt.commit(conn);
-		} catch (DataAccessException e) {
-			jdt.rollback(conn);
-			// Dao에서 DataAccessException발동하면 여기서 잡히게됨. 그럼 ExceptionHandler로 안가지니깐
-			// ToAlertException에 DataAccessException의 에러정보 전달해준다.
-			throw new ToAlertException(e.error);
-		} finally {
-			jdt.close(conn);
-		}
-		return res;
-	}
 }

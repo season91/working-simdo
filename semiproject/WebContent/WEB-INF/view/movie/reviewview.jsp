@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="${context}/resources/css/common/reset.css">
 <link rel="stylesheet" href="${context}/resources/css/movie/review.css">
 <link rel="stylesheet" href="${context}/resources/css/all.css">
-
 </head>
 <body>
 
@@ -18,16 +17,16 @@
 				<c:when test="${empty sessionScope.user}">
 					<%-- 비로그인 상태 --%>
 					<div class="top-right" style="width: 20vh">
-						<a class="top_user top_join" href="/user/login.do">로그인</a> <a
-							class="top_user" href="/user/join.do">회원가입</a>
+						<a class="top_user top_join" href="/user/login.do">로그인</a> 
+						<a class="top_user" href="/user/join.do">회원가입</a>
 					</div>
 				</c:when>
 				<c:otherwise>
 					<%-- 로그인 상태 --%>
 					<div class="top-right" style="width: 40vh">
-						<a class="top_user top_join" href="/mypage/mypage.do">마이페이지</a> <a
-							class="top_user" href="/comm/noticelist.do">커뮤니케이션</a> <a
-							class="top_user" href="/user/logout.do">로그아웃</a>
+						<a class="top_user top_join" href="/mypage/mypage.do">마이페이지</a> 
+						<a class="top_user" href="/comm/noticelist.do">커뮤니케이션</a> 
+						<a class="top_user" href="/user/logout.do">로그아웃</a>
 					</div>
 				</c:otherwise>
 			</c:choose>
@@ -36,19 +35,19 @@
 		<nav class="navi">
 			<div class="navi-wrapper">
 				<div class="nation-view">나라별</div>
-				<div class="year-view">연도별</div>
+				<div class="genre-view">장르별</div>
 				<div class="score-view">
 					<a>평점순</a>
 				</div>
 				<div class="review-view">
 					<a>후기순</a>
 				</div>
-				<div class="search-view">
+				<form class="search-view">
 					<input type="search" class="input_navi-search" name="search">
 					<button class="btn_navi-search">
 						<i class="fas fa-search"></i>
 					</button>
-				</div>
+				</form>
 			</div>
 		</nav>
 	</div>

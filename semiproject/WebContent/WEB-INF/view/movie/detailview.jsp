@@ -36,19 +36,19 @@
 		<nav class="navi">
 			<div class="navi-wrapper">
 				<div class="nation-view">나라별</div>
-				<div class="year-view">연도별</div>
+				<div class="genre-view">장르별</div>
 				<div class="score-view">
 					<a>평점순</a>
 				</div>
 				<div class="review-view">
 					<a>후기순</a>
 				</div>
-				<div class="search-view">
+				<form class="search-view">
 					<input type="search" class="input_navi-search" name="search">
 					<button class="btn_navi-search">
 						<i class="fas fa-search"></i>
 					</button>
-				</div>
+				</form>
 			</div>
 		</nav>
 	</div>

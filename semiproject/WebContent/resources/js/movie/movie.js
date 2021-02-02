@@ -4,7 +4,7 @@
 	
 	
 	let nationExtendView = ()=>{
-		let nation = ['한국','일본','미국','영국','프랑스','중국','러시아','독일','스페인'];
+		let nation = ['대한민국','일본','미국','영국','프랑스','중국','러시아','독일','스페인'];
 		createElement(nation);
 	}
 	
@@ -23,11 +23,27 @@
 			let a = document.createElement('a');
 			a.className = "navi-extend-list";
 			a.innerHTML = nation[i];
-			a.href = "/movie/nationview.do";
-			a.name = nation[i];
+			a.name = "nation";
+			/* 비동기통신으로 값을 가져와야할듯,,*/
+			a.addEventListener('click',()=>{
+				let nation = a.text;
+				console.dir(nation);
+				let headerObj = new Headers();
+				headerObj.append('Content-Type',"application/x-www-form-urlencoded");
+				
+				let url ="/movie/nationview.do?nation="+nation;
+				if(nation){
+					fetch(url,{
+						method:"get",
+						headers : headerObj
+					}).then(response=>{
+						if(response.ok){
+							console.dir('성공');
+						}
+					})
+				}
+			})
 			ul.appendChild(a);
-			
-			console.dir(a.name);
 		}
 		
 		div.append(ul);
@@ -37,6 +53,9 @@
 		
 	}
 	
+	let searchTitle = ()=>{
+		console.dir('눌름');
+	}
 
 
 	let delView = () =>{
@@ -55,7 +74,7 @@
 
 	});
 	
-	document.querySelector('.year-view').addEventListener('click',()=>{
+	document.querySelector('.genre-view').addEventListener('click',()=>{
 		if(check == 'no'){
 			genreExtendView();
 			check = 'yes';
