@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/include/head.jsp"%>
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/include/head.jsp" %>
 <head>
 <link rel="stylesheet" href="${context}/resources/css/common/reset.css">
-<link rel="stylesheet" href="${context}/resources/css/movie/nation.css">
+<link rel="stylesheet" href="${context}/resources/css/mypage/qnalist.css">
 <link rel="stylesheet" href="${context}/resources/css/all.css">
 
 </head>
 <body>
-
+	
 	<div class="header-wrapper">
 		<header class="header-section">
 			<a class="top-logo-text"><img class="top-logo-img"
@@ -35,46 +35,41 @@
 
 		<nav class="navi">
 			<div class="navi-wrapper">
-				<div class="nation-view">나라별</div>
-				<div class="genre-view">장르별</div>
-				<div class="score-view">
-					<a>평점순</a>
-				</div>
-				<div class="review-view">
-					<a>후기순</a>
-				</div>
-				<form class="search-view" action="/movie/searchview.do">
-					<input type="search" class="input_navi-search" name="search" placeholder="영화제목을 검색하세요.">
-					<button class="btn_navi-search">
-						<i class="fas fa-search"></i>
-					</button>
-				</form>
+				<div class="nation-view">영화 달력</div>
+				<div class="genre-view">영화 후기</div>
+				<div class="score-view">찜목록</div>
+				<div class="review-view">회원 정보 변경</div>
+				<div class="my-qnalist-view"><a>나의 문의 & 요청</a></div>
 			</div>
 		</nav>
 	</div>
-
-
+	
 	<div class="content">
-		<div class="mv_view_title">나라별 조회 결과입니다.</div>
-		<div class="mv_wrapper">
+		<div>나의 문의 요청!</div>
+		<table>
 		
-		<%-- 여기서 검색결과 하나씩 출력 --%>
-		<c:forEach var="movie" items="${res}">
-			<div class="mv_view_list">
-				<div class="mv_view_img">
-					<img src="${movie.poster}">
-				</div>
-				<div class="mv_view_text">
-					<p class="mv_title">${movie.mvTitle}</p>
-					<p class="mv_info">${movie.nation} / ${movie.director} 감독</p>
-					<a class="mv_readmore" href="/movie/detailview.do?title=${movie.mvTitle}">더보기</a>
-				</div>
-			</div>
+			<tr>
+				<th>글번호</th>
+				<th>제목</th>
+				<th>작성일</th>
+			</tr>
+			<c:forEach var="movie" items="${res}">
+				<%-- score 글번호 releaseDate 작성일자 mvTitle 글제목 --%>
+				<tr>
+					<td>${movie.score}</td>
+					<td>${movie.mvTitle}</td>
+					<td>${movie.releaseDate}</td>
+				</tr>
+			</c:forEach>
+			
+		</table>
+		<div>페이지번호 
+		<c:forEach var="i" begin="1" end="${requestScope.end}" step="1">
+			<a href="/mypage/qnalist.do?page=${i}"><c:out value="${i}"/></a>
 		</c:forEach>
 		</div>
 	</div>
-
-
+	
 	<footer class="bottom">
 		<div class="bottom_main">
 			<h2>SIMDO:WM</h2>
@@ -95,7 +90,6 @@
 		</div>
 	</footer>
 
-	<script type="text/javascript"
-		src="${context}/resources/js/movie/movie.js"></script>
+	<script type="text/javascript" src="${context}/resources/js/mypage/qnalist.js"></script>
 </body>
 </html>

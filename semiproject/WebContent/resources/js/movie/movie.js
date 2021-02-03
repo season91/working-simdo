@@ -23,7 +23,7 @@
 			let a = document.createElement('a');
 			a.className = "navi-extend-list";
 			a.innerHTML = extend[i];
-			a.href = "/movie/nationview.do?"+paramName+"="+extend[i];
+			a.href = "/movie/naviview.do?"+paramName+"="+extend[i];
 			ul.appendChild(a);
 		}
 		div.append(ul);

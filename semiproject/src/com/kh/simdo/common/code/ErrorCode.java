@@ -3,7 +3,6 @@ package com.kh.simdo.common.code;
 public enum ErrorCode {
 	
 	SM01("영화정보 조회 중 에러가 발생했습니다.","/member/login.do"), //select
-	SP01("영화포스터 조회중 에러가 발생했습니다."),
 	IM01("insert중 에러 발생.","/member/join.do"), //insert
 	IB01("게시글 등록 중 에러가 발생했습니다."),
 	SB01("게시글 정보를 조회하는 도중 에러가 발생하였습니다"),
