@@ -15,6 +15,8 @@ import com.kh.simdo.movie.model.vo.Movie;
 public class MovieDao {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
+	
+	
 	//영화 상세조회
 	public List<Movie> selectDetail(Connection conn, String title){
 		List<Movie> res = new ArrayList<Movie>();
@@ -49,8 +51,49 @@ public class MovieDao {
 		return res;
 	}
 	
+
+	//장르별 조회
+	public List<Movie> selectGenre(Connection conn, String genre){
+		System.out.println("장르다오");
+		List<Movie> res = new ArrayList<Movie>();
+		Movie movie = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		
+		try {
+			String sql ="select * from mv_basic_info where genre like '%"+genre+"%'";
+			pstm = conn.prepareStatement(sql);
+			rset = pstm.executeQuery();
+			while(rset.next()) {
+				movie = new Movie();
+				movie.setMvTitle(rset.getString("mv_title"));
+				movie.setScore(rset.getInt("score"));
+				movie.setDirector(rset.getString("director"));
+				movie.setGenre(rset.getString("genre"));
+				movie.setReleaseDate(rset.getDate("release_date"));
+				movie.setNation(rset.getString("nation"));
+				movie.setRuntime(rset.getInt("runtime"));
+				movie.setPlot(rset.getString("plot"));
+				movie.setRating(rset.getString("rating"));
+				movie.setPoster(rset.getString("poster"));
+				System.out.println(movie);
+				res.add(movie);
+
+			}
+			System.out.println(res);
+		} catch (SQLException e) {
+			throw new DataAccessException(ErrorCode.SM01, e);
+		} finally {
+			jdt.close(rset, pstm);
+		}
+		
+		
+		return res;
+	}
 	//나라별 조회
 	public List<Movie> selectNation(Connection conn, String nation){
+		System.out.println("나라다오");
 		List<Movie> res = new ArrayList<Movie>();
 		Movie movie = null;
 		PreparedStatement pstm = null;

@@ -98,8 +98,20 @@ public class MovieController extends HttpServlet {
 	protected void searchNation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String nation = request.getParameter("nation");
-		List<Movie> nationRes = movieService.selectNation(nation);
-		List movieList = parseJson(nationRes);
+		String genre = request.getParameter("genre");
+		List movieList = new ArrayList();
+		
+		if(nation == null && genre != null) {
+			System.out.println("장르로조회");
+			List<Movie> genreRes = movieService.selectGenre(genre);
+			movieList = parseJson(genreRes);
+			System.out.println(movieList);
+		} else if(nation != null && genre == null){
+			System.out.println("나라로 조회");
+			List<Movie> nationRes = movieService.selectNation(nation);
+			movieList = parseJson(nationRes);
+			System.out.println(movieList);
+		}
 		request.setAttribute("res", movieList);
 		request.getRequestDispatcher("/WEB-INF/view/movie/nationview.jsp").forward(request, response);
 	}

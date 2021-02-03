@@ -195,26 +195,29 @@ body{
 	justify-content:space-around;
 	align-items:center;
 	height: 10vh;
-
-	
 }
 
 /* 중간 기본정보부분 */
 /* 전체 틀 */
 .mv_info_middle-wrap{
 	display:flex;
-	justify-content:center;
-	height: 50vh;
+	justify-content:space-evenly;
+	min-height:50vh;
+	max-height:70vh;
+	padding-top: 1vh;
 	padding-bottom: 1vh;
 	
 }
 .mv_info_top_left{
 	width: 40vh;
-	
+	min-height:50vh;
+	max-height:70vh;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .mv_info_img>img{
-	height: 50vh;
+	height: 90%;
 }
 
 /* 오른쪽틀 */
@@ -234,6 +237,7 @@ body{
 	font-weight: bold;
 	position: relative;
 	bottom: 1vh;
+	margin-bottom: 1vh;
 }
 
 
@@ -269,6 +273,7 @@ body{
 	font-size: 1.5vh;
 	position: relative;
 	bottom: 2vh;
+	margin-bottom: 2vh;
 }
 
 .mv_info_plot>p{
@@ -280,12 +285,14 @@ body{
 
 .mv_info_plot_content{
 	font-size: 1.5vh;
+	margin-bottom: 2vh;
 }
 
 /* 심도평점 점수 부분 */
 .mv_info_score{
 	font-size: 3vh;
 	font-weight: bold;
+	margin-bottom: 2vh;
 }
 /* 후기,명대사,번역작성하기 부분  */
 .mv_info_write{
@@ -326,13 +333,12 @@ body{
 }
 
 .mv_info_simdo-review-wrapper{
-	height: 100%;
+	height: 90%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	width: 38vh;
 	padding-top: 1vh;
-	padding-bottom: 1vh;
 }
 
 .mv_info_simdo-review{
@@ -370,7 +376,7 @@ body{
 /* 명대사부분 */
 
 .mv_info_simdo-fmsline-wrapper{
-	height: 100%;
+	height: 90%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;

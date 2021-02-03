@@ -40,6 +40,19 @@ public class MovieService {
 		return res;
 	}
 	
+	// 영화 장르별 조회
+	public List<Movie> selectGenre(String genre){
+		List<Movie> res = new ArrayList<Movie>();
+		Connection conn = jdt.getConnection();
+		System.out.println("selectGenre서비스"+genre);
+		try {
+			res = movieDao.selectGenre(conn, genre);
+		} finally {
+			jdt.close(conn);
+		}
+		return res;
+	}
+	
 	// 영화 나라별 조회
 	public List<Movie> selectNation(String nation){
 		List<Movie> res = new ArrayList<Movie>();
