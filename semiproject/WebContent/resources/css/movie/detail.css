@@ -83,6 +83,15 @@ body{
 	color: #DADAD9;
 }
 
+.input_navi-search{
+	width: 15vw;
+}
+.search-view{
+	display: flex;
+	align-items: center;
+}
+
+
 /* footer */
 .bottom{
    height:15vh;   
@@ -152,11 +161,20 @@ body{
 }
 
 .mv_info_detail{
-	font-size: 3vh;
+	font-size: 4.5vh;
 	font-weight: bold;
 	
 }
+
+.mv_info_title{
+	font-size:3vh;
+	background-color:#696765;
+	color:#DADAD9;
+}
+	
+	
 .mv_info_basic{
+	font-size:3vh;
 	width: 20vh;
 }
 
@@ -167,6 +185,7 @@ body{
 	border-style:outset;
 	border-radius:10px;
 	box-shadow: 4px 4px 2px 1px gray;
+	background-color: rgba(255,255,255,0.5);
 	transition-duration:0.5s;
 }
 
@@ -176,28 +195,29 @@ body{
 	justify-content:space-around;
 	align-items:center;
 	height: 10vh;
-	background-color: rgba(255,255,255,0.5);
-	
 }
 
 /* 중간 기본정보부분 */
 /* 전체 틀 */
 .mv_info_middle-wrap{
 	display:flex;
-	justify-content:center;
-	height: 50vh;
-	background-color: rgba(255,255,255,0.5);
-	padding-bottom: 5vh;
-	padding-top: 3vh;
+	justify-content:space-evenly;
+	min-height:50vh;
+	max-height:70vh;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
 	
 }
 .mv_info_top_left{
 	width: 40vh;
-	
+	min-height:50vh;
+	max-height:70vh;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .mv_info_img>img{
-	height: 50vh;
+	height: 90%;
 }
 
 /* 오른쪽틀 */
@@ -213,29 +233,24 @@ body{
 .mv_info-title_wrap{
 	display: flex;	
 	justify-content: space-between;
-	font-size: 4.5vh;
+	font-size: 3.5vh;
 	font-weight: bold;
 	position: relative;
 	bottom: 1vh;
+	margin-bottom: 1vh;
 }
 
 
 /* 아이콘 버튼 */
-.mv_info_write{
-	width: 40vh;
-	display: flex;
-	justify-content: space-between;
-	
-}
+
 
 .mv_info_btn{
 	display: flex;
 }
 
-
 .mv_info_btn i{
 	display: flex;
-	font-size: 5vh;
+	font-size: 3.5vh;
 	justify-content: space-between;
 	color: black;
 	transition-duration:0.5s;
@@ -254,38 +269,38 @@ body{
 }
 
 /* 영화제목,감독,장르 부분 */
-.mv_info_content{
-	font-size: 2vh;
+.mv_info_basic_content{
+	font-size: 1.5vh;
 	position: relative;
-	bottom: 3vh;
-	font-weight: bold;
-	
+	bottom: 2vh;
+	margin-bottom: 2vh;
 }
 
-/* 주연배우 정보 */
-.mv_info_actor{
-	font-size:4vh;
+.mv_info_plot>p{
+	font-size: 3vh;
 	font-weight: bold;
-	
-}
-.mv_info_actorlist{
-	display: flex;
-	font-size: 2vh;
 	position: relative;
-	top: 1vh;
+	bottom: 1.5vh;
 }
-.actor{
-	width: 12vh;
-	text-align: center;
+
+.mv_info_plot_content{
+	font-size: 1.5vh;
+	margin-bottom: 2vh;
 }
-.actor>img{
-	height: 12vh;
-}
+
 /* 심도평점 점수 부분 */
 .mv_info_score{
 	font-size: 3vh;
+	font-weight: bold;
+	margin-bottom: 2vh;
 }
 /* 후기,명대사,번역작성하기 부분  */
+.mv_info_write{
+	width: 40vh;
+	display: flex;
+	justify-content: space-between;
+	
+}
 .mv_info_write>span{
 	height:3vh;
 	width: 13vh;
@@ -307,12 +322,10 @@ body{
 /* 맨 하단 심도후기,평점 부분 */
 /* 후기부분 */
 .mv_info_bottom-wrap{
-	background-color: rgba(255,255,255,0.5);
 	display:flex;
 	justify-content:center;
 	height: 25vh;
-	padding-top: 1vh;
-	border-top: 1px black;
+	border-top: 1px #696765 solid;
 
 }
 .mv_info_bottom-wrap>div{
@@ -320,12 +333,12 @@ body{
 }
 
 .mv_info_simdo-review-wrapper{
-	height: 100%;
+	height: 90%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	position: relative;
-	bottom: 2vh;
+	width: 38vh;
+	padding-top: 1vh;
 }
 
 .mv_info_simdo-review{
@@ -336,6 +349,7 @@ body{
 	height: 3vh;
 	text-align: center;
 	font-size: 2.5vh;
+	box-shadow: 2px 2px 1px 1px rgb(255, 217, 217);
 }
 
 .mv_review{
@@ -360,19 +374,15 @@ body{
 }
 
 /* 명대사부분 */
-.mv_info_simdo-fmsline-wrapper>span{
-	font-size: 2.5vh;
-	font-weight: bold;
-	background-color: yellow;
-	border-radius: 5px;
-}
+
 .mv_info_simdo-fmsline-wrapper{
-	height: 100%;
+	height: 90%;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	position: relative;
-	bottom: 2vh;
+	width: 38vh;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
 }
 
 .mv_info_simdo-fmsline{
@@ -383,4 +393,5 @@ body{
 	height:3vh;
 	text-align: center;
 	font-size: 2.5vh;
+	box-shadow: 2px 2px 1px 1px rgb(255, 255, 198);
 }

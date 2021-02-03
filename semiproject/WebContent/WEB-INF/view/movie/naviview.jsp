@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/include/head.jsp"%>
+<head>
 <link rel="stylesheet" href="${context}/resources/css/common/reset.css">
-<link rel="stylesheet" href="${context}/resources/css/movie/search.css">
+<link rel="stylesheet" href="${context}/resources/css/movie/navi.css">
 <link rel="stylesheet" href="${context}/resources/css/all.css">
+
+</head>
 <body>
-<div class="header-wrapper">
+
+	<div class="header-wrapper">
 		<header class="header-section">
 			<a class="top-logo-text"><img class="top-logo-img"
 				style="width: 20vh; margin-left: 5%" alt="logo"
@@ -21,14 +25,14 @@
 				<c:otherwise>
 					<%-- 로그인 상태 --%>
 					<div class="top-right" style="width: 40vh">
-						<a class="top_user top_join" href="/mypage/mypage.do">마이페이지</a> 
-						<a class="top_user" href="/comm/noticelist.do">커뮤니케이션</a> <a
+						<a class="top_user top_join" href="/mypage/mypage.do">마이페이지</a> <a
+							class="top_user" href="/comm/noticelist.do">커뮤니케이션</a> <a
 							class="top_user" href="/user/logout.do">로그아웃</a>
 					</div>
 				</c:otherwise>
 			</c:choose>
 		</header>
-		
+
 		<nav class="navi">
 			<div class="navi-wrapper">
 				<div class="nation-view">나라별</div>
@@ -39,30 +43,38 @@
 				<div class="review-view">
 					<a>후기순</a>
 				</div>
-				<div class="search-view">
+				<form class="search-view">
 					<input type="search" class="input_navi-search" name="search">
 					<button class="btn_navi-search">
 						<i class="fas fa-search"></i>
 					</button>
-				</div>
+				</form>
 			</div>
 		</nav>
 	</div>
-		<div class="content">
-			<div class="mv_view_title">검색결과 입니다.</div>
-			<div class="mv_wrapper">
-			<c:forEach var="movie" items="${res}" varStatus="status">
-				<div class="mv_view_list">
-					<div class="mv_view_img"><img src="${movie.poster}"></div>
-					<div class="mv_view_text">
-						<p class="mv_title">${movie.mvTitle}</p>
-						<p class="mv_info">${movie.nation} / ${movie.director} 감독</p>
-						<a class="mv_readmore" href="/movie/detailview.do" name="title" value="rere">더보기</a>
-					</div>
+
+
+	<div class="content">
+		<div class="mv_view_title">${requestScope.navi} 조회 결과입니다.</div>
+		<div class="mv_wrapper">
+		
+		<%-- 여기서 검색결과 하나씩 출력 --%>
+		<c:forEach var="movie" items="${res}">
+			<div class="mv_view_list">
+				<div class="mv_view_img">
+					<img src="${movie.poster}">
 				</div>
-			</c:forEach>
+				<div class="mv_view_text">
+					<p class="mv_title">${movie.mvTitle}</p>
+					<p class="mv_info">${movie.nation} / ${movie.director} 감독</p>
+					<a class="mv_readmore" href="/movie/detailview.do?title=${movie.mvTitle}">더보기</a>
+				</div>
 			</div>
+		</c:forEach>
 		</div>
+	</div>
+
+
 	<footer class="bottom">
 		<div class="bottom_main">
 			<h2>SIMDO:WM</h2>
@@ -85,6 +97,5 @@
 
 	<script type="text/javascript"
 		src="${context}/resources/js/movie/movie.js"></script>
-	
 </body>
 </html>

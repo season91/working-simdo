@@ -36,35 +36,37 @@
 		<nav class="navi">
 			<div class="navi-wrapper">
 				<div class="nation-view">나라별</div>
-				<div class="year-view">연도별</div>
+				<div class="genre-view">장르별</div>
 				<div class="score-view">
 					<a>평점순</a>
 				</div>
 				<div class="review-view">
 					<a>후기순</a>
 				</div>
-				<div class="search-view">
+				<form class="search-view">
 					<input type="search" class="input_navi-search" name="search">
 					<button class="btn_navi-search">
 						<i class="fas fa-search"></i>
 					</button>
-				</div>
+				</form>
 			</div>
 		</nav>
 	</div>
 
 	<div class="content">
-		<div class="mv_info_wrap">
+		<c:forEach var="movie" items="${res}">
+			<div class="mv_info_wrap">
 			<div class="mv_info_top-wrap">
 				<p class="mv_info_detail">영화 상세 정보</p>
 				<div class="mv_info_title">
-					<p>내 인생을 망치러 온 나의 구원자</p>
+					<p>명대사 디비 넣고 명대사 넣어야함.</p>
 				</div>
 			</div>
 			<div class="mv_info_middle-wrap">
+			
 				<div class="mv_info_top_left mv_info_img">
 					<img
-						src="https://movie-phinf.pstatic.net/20160523_204/14639851237601hEGQ_JPEG/movie_image.jpg">
+						src="${movie.poster}">
 				</div>
 				<div class="mv_info_top_right">
 					<div class="mv_info-title_wrap">
@@ -82,31 +84,18 @@
 							</button>
 						</div>
 					</div>
-					<div class="mv_info_content">
-						<p>아가씨 The Handmaiden</p>
-						<p>감독 : 박찬욱</p>
-						<p>장르 : 스릴러</p>
-						<p>제작국가 : 한국</p>
+					<div class="mv_info_basic_content">
+						<p>${movie.mvTitle}</p>
+						<p>감독 : ${movie.director}</p>
+						<p>장르 : ${movie.genre}</p>
+						<p>제작국가 : ${movie.nation}</p>
+						<p>상영시간 : ${movie.runtime}</p>
+						<p>관람등급 : ${movie.rating}</p>
 					</div>
-					<div class="mv_info_actor">
-						주연 배우 정보
-						<div class="mv_info_actorlist">
-							<div class="actor">
-								<img
-									src="https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201408%2F20140825155028107-6430364.jpg">김민희
-							</div>
-							<div class="actor">
-								<img
-									src="https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201805%2F20180529182619381.jpg">김태리
-							</div>
-							<div class="actor">
-								<img
-									src="https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201703%2F20170309160737361.jpg">하정우
-							</div>
-							<div class="actor">
-								<img
-									src="https://search.pstatic.net/common?type=a&size=120x150&quality=95&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2Fportrait%2F201708%2F20170821165401677.jpg">조진웅
-							</div>
+					<div class="mv_info_plot">
+						<p>줄거리<p>
+						<div class="mv_info_plot_content">
+							${movie.plot}	
 						</div>
 
 					</div>
@@ -172,6 +161,7 @@
 				</div>
 			</div>
 		</div>
+		</c:forEach>
 	</div>
 
 	<footer class="bottom">
