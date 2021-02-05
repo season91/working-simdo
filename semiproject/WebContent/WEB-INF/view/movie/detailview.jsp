@@ -43,8 +43,8 @@
 				<div class="review-view">
 					<a>후기순</a>
 				</div>
-				<form class="search-view">
-					<input type="search" class="input_navi-search" name="search">
+				<form class="search-view" action="/movie/searchview.do">
+					<input type="search" class="input_navi-search" name="search" placeholder="영화제목을 검색하세요.">
 					<button class="btn_navi-search">
 						<i class="fas fa-search"></i>
 					</button>
@@ -54,7 +54,7 @@
 	</div>
 
 	<div class="content">
-		<c:forEach var="movie" items="${res}">
+
 			<div class="mv_info_wrap">
 			<div class="mv_info_top-wrap">
 				<p class="mv_info_detail">영화 상세 정보</p>
@@ -66,7 +66,7 @@
 			
 				<div class="mv_info_top_left mv_info_img">
 					<img
-						src="${movie.poster}">
+						src="${res.poster}">
 				</div>
 				<div class="mv_info_top_right">
 					<div class="mv_info-title_wrap">
@@ -85,17 +85,17 @@
 						</div>
 					</div>
 					<div class="mv_info_basic_content">
-						<p>${movie.mvTitle}</p>
-						<p>감독 : ${movie.director}</p>
-						<p>장르 : ${movie.genre}</p>
-						<p>제작국가 : ${movie.nation}</p>
-						<p>상영시간 : ${movie.runtime}</p>
-						<p>관람등급 : ${movie.rating}</p>
+						<p>${res.mvTitle}</p>
+						<p>감독 : ${res.director}</p>
+						<p>장르 : ${res.genre}</p>
+						<p>제작국가 : ${res.nation}</p>
+						<p>상영시간 : ${res.runtime}</p>
+						<p>관람등급 : ${res.rating}</p>
 					</div>
 					<div class="mv_info_plot">
 						<p>줄거리<p>
 						<div class="mv_info_plot_content">
-							${movie.plot}	
+							${res.plot}	
 						</div>
 
 					</div>
@@ -161,7 +161,7 @@
 				</div>
 			</div>
 		</div>
-		</c:forEach>
+
 	</div>
 
 	<footer class="bottom">

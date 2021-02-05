@@ -43,8 +43,8 @@
 				<div class="review-view">
 					<a>후기순</a>
 				</div>
-				<form class="search-view">
-					<input type="search" class="input_navi-search" name="search">
+				<form class="search-view" action="/movie/searchview.do">
+					<input type="search" class="input_navi-search" name="search" placeholder="영화제목을 검색하세요.">
 					<button class="btn_navi-search">
 						<i class="fas fa-search"></i>
 					</button>
@@ -67,7 +67,7 @@
 				<div class="mv_view_text">
 					<p class="mv_title">${movie.mvTitle}</p>
 					<p class="mv_info">${movie.nation} / ${movie.director} 감독</p>
-					<a class="mv_readmore" href="/movie/detailview.do?title=${movie.mvTitle}">더보기</a>
+					<a class="mv_readmore" href="/movie/detailview.do?mvno=${movie.mvNo}">더보기</a>
 				</div>
 			</div>
 		</c:forEach>

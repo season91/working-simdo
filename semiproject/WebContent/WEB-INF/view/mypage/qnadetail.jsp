@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/include/head.jsp" %>
-<head>
+<%@ include file="/WEB-INF/view/include/head.jsp"%>
 <link rel="stylesheet" href="${context}/resources/css/common/reset.css">
-<link rel="stylesheet" href="${context}/resources/css/mypage/qnalist.css">
+<link rel="stylesheet" href="${context}/resources/css/mypage/qnadetail.css">
 <link rel="stylesheet" href="${context}/resources/css/all.css">
-
-</head>
 <body>
-	
 	<div class="header-wrapper">
 		<header class="header-section">
 			<a class="top-logo-text"><img class="top-logo-img"
@@ -32,7 +28,6 @@
 				</c:otherwise>
 			</c:choose>
 		</header>
-
 		<nav class="navi">
 			<div class="navi-wrapper">
 				<div class="nation-view">영화 달력</div>
@@ -45,41 +40,23 @@
 	</div>
 	
 	<div class="content">
-		<div>나의 문의 요청!</div>
-		<table>
-		
-			<tr>
-				<th>글번호</th>
-				<th>제목</th>
-				<th>작성일</th>
-			</tr>
-			<c:forEach var="movie" items="${res}" varStatus="status">
-				<%-- score 글번호 releaseDate 작성일자 mvTitle 글제목 --%>
-				<tr>
-					<td>${movie.score}</td>
-					<td>${movie.mvTitle}</td>
-					<td>${movie.releaseDate}</td>
-				</tr>
-			</c:forEach>
-			
-		</table>
-		<div>페이지번호 
-		<c:forEach var="i" begin="1" end="${requestScope.end}" step="1" varStatus="status">
-		<c:choose>
-			
-			<c:when test="${page!=status.count}">
-			<a href="/mypage/qnalist.do?page=${i}"><c:out value="${i}"/></a>
-			</c:when>
-			<c:otherwise>
-			<a href="/mypage/qnalist.do?page=${i}"><span style="color:rgb(000,153,255);"><c:out value="${i}"/></span></a>
-			</c:otherwise>
-			
-		</c:choose>
-		
-		</c:forEach>
+		<div class="qna_wrap"> 
+			<div class="qna-info">
+				<div class="qna_head">나의 문의 & 요청</div>
+				<div class="qna_title">영화 아가씨 상세정보문의드립니다.</div>
+				<div class="qna_info">글번호 1000. 작성시간 : 2021-02-04 14:05</div>
+			</div>
+			<div class="qna_write_wrap">
+				<div class="qna_write_head">문의 내용</div>
+				<div class="qna_write_content">아가씨의 시대연도는 어떻게 되는건지 궁금합니다.</div>
+			</div>
+			<div class="admin_answer_wrap">
+				<div class="admin_answer_head">관리자 답변</div>
+				<div class="admin_answer_write">관리자의 문의를 확인 중 입니다.</div>
+			</div>		
 		</div>
 	</div>
-	
+		
 	<footer class="bottom">
 		<div class="bottom_main">
 			<h2>SIMDO:WM</h2>
@@ -99,7 +76,6 @@
 			</div>
 		</div>
 	</footer>
-
-	<script type="text/javascript" src="${context}/resources/js/mypage/qnalist.js"></script>
+	
 </body>
 </html>

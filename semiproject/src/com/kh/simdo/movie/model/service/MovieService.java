@@ -28,12 +28,12 @@ public class MovieService {
 	MovieDao movieDao = new MovieDao();
 	
 	//영화 상세정보 조회
-	public List<Movie> selectDetail(String title){
-		System.out.println("selectDetail"+title);
-		List<Movie> res = new ArrayList<Movie>();
+	public Movie selectDetail(String mvNo){
+		System.out.println("selectDetail"+mvNo);
+		Movie res = new Movie();
 		Connection conn = jdt.getConnection();
 		try {
-			res = movieDao.selectDetail(conn, title);
+			res = movieDao.selectDetail(conn, mvNo);
 		} finally {
 			jdt.close(conn);
 		}
