@@ -11,25 +11,29 @@ import com.kh.simdo.common.code.ErrorCode;
 import com.kh.simdo.common.exception.DataAccessException;
 import com.kh.simdo.common.jdbc.JDBCTemplate;
 import com.kh.simdo.movie.model.vo.Movie;
-
+/**
+ * 
+ * @Author : 조아영
+   @Date : 2021. 2. 4.
+   @work :
+ */
 public class MovieDao {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	
 	
 	//영화 상세조회
-	public List<Movie> selectDetail(Connection conn, String title){
-		List<Movie> res = new ArrayList<Movie>();
+	public Movie selectDetail(Connection conn, String mvNo){
 		Movie movie = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
 		
 		try {
-			String sql = "select * from  mv_basic_info where mv_title = ?";
+			String sql = "select * from  mv_basic_info where mv_no = ?";
 			pstm = conn.prepareStatement(sql);
-			pstm.setString(1, title);
+			pstm.setString(1, mvNo);
 			rset = pstm.executeQuery();
-			while(rset.next()) {
+			if(rset.next()) {
 				movie = new Movie();
 				movie.setMvTitle(rset.getString("mv_title"));
 				movie.setScore(rset.getInt("score"));
@@ -41,14 +45,13 @@ public class MovieDao {
 				movie.setPlot(rset.getString("plot"));
 				movie.setRating(rset.getString("rating"));
 				movie.setPoster(rset.getString("poster"));
-				res.add(movie);
 			}
 		} catch (SQLException e) {
 			throw new DataAccessException(ErrorCode.SM01, e);
 		} finally {
 			jdt.close(rset, pstm);
 		}
-		return res;
+		return movie;
 	}
 	
 
@@ -67,6 +70,7 @@ public class MovieDao {
 			rset = pstm.executeQuery();
 			while(rset.next()) {
 				movie = new Movie();
+				movie.setMvNo(rset.getString("mv_no"));
 				movie.setMvTitle(rset.getString("mv_title"));
 				movie.setScore(rset.getInt("score"));
 				movie.setDirector(rset.getString("director"));
@@ -106,6 +110,7 @@ public class MovieDao {
 			rset = pstm.executeQuery();
 			while(rset.next()) {
 				movie = new Movie();
+				movie.setMvNo(rset.getString("mv_no"));
 				movie.setMvTitle(rset.getString("mv_title"));
 				movie.setScore(rset.getInt("score"));
 				movie.setDirector(rset.getString("director"));
@@ -142,6 +147,7 @@ public class MovieDao {
 			
 			while(rset.next()) {
 				movie = new Movie();
+				movie.setMvNo(rset.getString("mv_no"));
 				movie.setMvTitle(rset.getString("mv_title"));
 				movie.setScore(rset.getInt("score"));
 				movie.setDirector(rset.getString("director"));

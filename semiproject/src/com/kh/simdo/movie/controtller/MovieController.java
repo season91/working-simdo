@@ -19,9 +19,8 @@ import com.google.gson.Gson;
 import com.kh.simdo.movie.model.service.MovieService;
 import com.kh.simdo.movie.model.vo.Movie;
 /**
- * 
+ * @author 조아영
  */
-
 /**
  * Servlet implementation class MovieController
  */
@@ -76,13 +75,13 @@ public class MovieController extends HttpServlet {
 	
 	// 더보기 메서드
 	protected void readMore(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
+		String mvNo = request.getParameter("mvno");
+		System.out.println(mvNo);
 		// 영화 제목으로 영화정보 받아오기
 		// 제목검색이랑 같이쓰려고했는데, 제목검색부분은 너프한기준이고 여기는 딱맞게 1개여애해서 따로 dao 생성하기로 결심
-		List<Movie> detailRes = movieService.selectDetail(title);
-		List movieList = parseJson(detailRes);
-		System.out.println(movieList);
-		request.setAttribute("res", movieList);
+		Movie detailRes = movieService.selectDetail(mvNo);
+		System.out.println(detailRes);
+		request.setAttribute("res", detailRes);
 		request.getRequestDispatcher("/WEB-INF/view/movie/detailview.jsp").forward(request, response);
 	}
 	
@@ -125,7 +124,7 @@ public class MovieController extends HttpServlet {
 	protected void searchTitle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String searchTitle = request.getParameter("search");
-
+		System.out.println(searchTitle);
 		// 영화정보 받아오기 
 		List<Movie> searchRes = movieService.selectSearchTitle(searchTitle);
 		List movieList = parseJson(searchRes);

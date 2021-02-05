@@ -47,12 +47,19 @@ public class MypageController extends HttpServlet {
 		return list;
 	}
     
+    protected void qnaDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String title = request.getParameter("title");
+		request.getRequestDispatcher("/WEB-INF/view/mypage/qnadetail.jsp").forward(request, response);
+	}
+
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String uri = request.getRequestURI();
 		String[] uriArr = uri.split("/");
 		
 		switch (uriArr[uriArr.length-1]) {
+		case "qnadetail.do" :qnaDetail(request,response); break;
 		case "qnalist.do": 
 			// 페이징표현해주는 메서드
 			String text = request.getParameter("page");
@@ -73,6 +80,7 @@ public class MypageController extends HttpServlet {
 			movieList = parseJson(pageRes);
 			
 			request.setAttribute("res", movieList);
+			request.setAttribute("page", page);
 			
 			//score 글번호 releaseDate 작성일자 mvTitle 글제목
 			
