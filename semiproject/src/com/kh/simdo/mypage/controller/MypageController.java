@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.kh.simdo.movie.model.vo.Movie;
-import com.kh.simdo.mypage.model.QnaListService;
 /**
  * @author 조아영
  */
@@ -24,7 +23,7 @@ import com.kh.simdo.mypage.model.QnaListService;
 @WebServlet("/mypage/*")
 public class MypageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-     QnaListService qnalistService = new QnaListService();
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -49,7 +48,7 @@ public class MypageController extends HttpServlet {
     
     protected void qnaDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String title = request.getParameter("title");
-		request.getRequestDispatcher("/WEB-INF/view/mypage/qnadetail.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/mypage/myqnadetail.jsp").forward(request, response);
 	}
 
     
@@ -59,8 +58,8 @@ public class MypageController extends HttpServlet {
 		String[] uriArr = uri.split("/");
 		
 		switch (uriArr[uriArr.length-1]) {
-		case "qnadetail.do" :qnaDetail(request,response); break;
-		case "qnalist.do": 
+		case "myqnadetail.do" :qnaDetail(request,response); break;
+		case "myqnalist.do": 
 			// 페이징표현해주는 메서드
 			String text = request.getParameter("page");
 			List movieList = new ArrayList();
@@ -71,22 +70,14 @@ public class MypageController extends HttpServlet {
 				page = Integer.parseInt(text);
 			}
 			
-			int[] res = qnalistService.selectPagingList(page);
-			request.setAttribute("start", res[0]);
-			request.setAttribute("end", res[1]);
-
-			System.out.println(page);
-			List<Movie> pageRes = qnalistService.selectQnaList(page);
-			movieList = parseJson(pageRes);
-			
 			request.setAttribute("res", movieList);
 			request.setAttribute("page", page);
 			
 			//score 글번호 releaseDate 작성일자 mvTitle 글제목
 			
-			request.getRequestDispatcher("/WEB-INF/view/mypage/qnalist.jsp").forward(request, response);	
+			request.getRequestDispatcher("/WEB-INF/view/mypage/myqnalist.jsp").forward(request, response);	
 			break;
-
+		case "mycalendar.do": request.getRequestDispatcher("/WEB-INF/view/mypage/mycalendar.jsp").forward(request, response);
 		default:
 			break;
 		}

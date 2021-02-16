@@ -23,7 +23,7 @@ public class MovieDao {
 	
 	
 	//영화 상세조회
-	public Movie selectDetail(Connection conn, String mvNo){
+	public Movie selectMovieByMvNo(Connection conn, String mvNo){
 		Movie movie = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
@@ -54,16 +54,96 @@ public class MovieDao {
 		return movie;
 	}
 	
+	// 후기순 조회, 후기 2개이상인 것들만, 탈퇴유저후기 제외
+	public List<Movie> selectMovieByReviewCount(Connection conn){
+		Movie movie = null;
+		List<Movie> res = new ArrayList<Movie>();
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		
+		try {
+			String sql = "select * from mv_basic_info where mv_no in (select mv_no from (select r.mv_no, count(*) as cnt from user_review r inner join \"USER\" u using (user_no) where u.is_leave = 0 group by mv_no having count(*)>=2 order by cnt desc))";
+			
+			pstm = conn.prepareStatement(sql);
+			rset = pstm.executeQuery();
+			while(rset.next()) {
+				movie = new Movie();
+				movie.setMvNo(rset.getString("mv_no"));
+				movie.setMvTitle(rset.getString("mv_title"));
+				movie.setScore(rset.getInt("score"));
+				movie.setDirector(rset.getString("director"));
+				movie.setGenre(rset.getString("genre"));
+				movie.setReleaseDate(rset.getDate("release_date"));
+				movie.setNation(rset.getString("nation"));
+				movie.setRuntime(rset.getInt("runtime"));
+				movie.setPlot(rset.getString("plot"));
+				movie.setRating(rset.getString("rating"));
+				movie.setPoster(rset.getString("poster"));
+				res.add(movie);
+
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(ErrorCode.SM01, e);
+		} finally {
+			jdt.close(rset, pstm);
+		}
+		return res;
+				
+	}
+	
+	
+	/**
+	 * 
+	 * @Author : 조아영
+	   @Date : 2021. 2. 6.
+	   @param conn
+	   @param count
+	   @return
+	   @work :
+	 */
+	// 영화 평점순 조회
+	public List<Movie> selectMovieBySocre(Connection conn, int count){
+		List<Movie> res = new ArrayList<Movie>();
+		Movie movie = null;
+		PreparedStatement pstm = null;
+		ResultSet rset = null;
+		try {
+			String sql = "select * from mv_basic_info where mv_no in (select  mv_no from (select  mv_no, AVG(score) AS POINT from user_review  group by mv_no having AVG(score) > 4 order by 2 desc) where rownum <= ?)";
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, count);
+			rset = pstm.executeQuery();
+			while(rset.next()) {
+				movie = new Movie();
+				movie.setMvNo(rset.getString("mv_no"));
+				movie.setMvTitle(rset.getString("mv_title"));
+				movie.setScore(rset.getInt("score"));
+				movie.setDirector(rset.getString("director"));
+				movie.setGenre(rset.getString("genre"));
+				movie.setReleaseDate(rset.getDate("release_date"));
+				movie.setNation(rset.getString("nation"));
+				movie.setRuntime(rset.getInt("runtime"));
+				movie.setPlot(rset.getString("plot"));
+				movie.setRating(rset.getString("rating"));
+				movie.setPoster(rset.getString("poster"));
+				res.add(movie);
+			}
+			
+		} catch (SQLException e) {
+			throw new DataAccessException(ErrorCode.SM01, e);
+		} finally {
+			jdt.close(rset, pstm);
+		}
+		return res;
+	}
 
 	//장르별 조회
-	public List<Movie> selectGenre(Connection conn, String genre){
+	public List<Movie> selectMovieByGenre(Connection conn, String genre){
 		System.out.println("장르다오");
 		List<Movie> res = new ArrayList<Movie>();
 		Movie movie = null;
 		PreparedStatement pstm = null;
 		ResultSet rset = null;
-		
-		
+
 		try {
 			String sql ="select * from mv_basic_info where genre like '%"+genre+"%'";
 			pstm = conn.prepareStatement(sql);
@@ -81,11 +161,9 @@ public class MovieDao {
 				movie.setPlot(rset.getString("plot"));
 				movie.setRating(rset.getString("rating"));
 				movie.setPoster(rset.getString("poster"));
-				System.out.println(movie);
 				res.add(movie);
 
 			}
-			System.out.println(res);
 		} catch (SQLException e) {
 			throw new DataAccessException(ErrorCode.SM01, e);
 		} finally {
@@ -96,7 +174,7 @@ public class MovieDao {
 		return res;
 	}
 	//나라별 조회
-	public List<Movie> selectNation(Connection conn, String nation){
+	public List<Movie> selectMovieByNation(Connection conn, String nation){
 		System.out.println("나라다오");
 		List<Movie> res = new ArrayList<Movie>();
 		Movie movie = null;
@@ -130,8 +208,9 @@ public class MovieDao {
 		}
 		return res;
 	}
-	//검색 조회
-	public List<Movie> selectSearchMovie(Connection conn, String searchTitle) {
+	
+	// 영화제목 검색 조회
+	public List<Movie> selectMovieByTitle(Connection conn, String searchTitle) {
 		
 		List<Movie> res = new ArrayList<Movie>();
 		Movie movie = null;
@@ -169,7 +248,7 @@ public class MovieDao {
 	}
 
 	
-		
+	// 영화 DB 넣는 메서드
 	public int insertMovieInfo(Connection conn, Movie movie) {
 		//commit rollback 해야하는 기능
 		
@@ -203,5 +282,6 @@ public class MovieDao {
 
 		return res;
 	}
+
 
 }

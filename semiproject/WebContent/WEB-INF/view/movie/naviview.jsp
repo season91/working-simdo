@@ -5,15 +5,13 @@
 <link rel="stylesheet" href="${context}/resources/css/common/reset.css">
 <link rel="stylesheet" href="${context}/resources/css/movie/navi.css">
 <link rel="stylesheet" href="${context}/resources/css/all.css">
-
 </head>
 <body>
 
 	<div class="header-wrapper">
 		<header class="header-section">
-			<a class="top-logo-text"><img class="top-logo-img"
-				style="width: 20vh; margin-left: 5%" alt="logo"
-				src="/resources/image/logo.png"></a>
+			 <a class="top-logo-text"><img class="top-logo-img" style="width: 20vh; margin-left: 5%; cursor:pointer;" alt="logo;" src="/resources/image/logo.png"
+         		  OnClick="location.href ='/index.do'"></a>
 			<c:choose>
 				<c:when test="${empty sessionScope.user}">
 					<%-- 비로그인 상태 --%>
@@ -32,19 +30,14 @@
 				</c:otherwise>
 			</c:choose>
 		</header>
-
 		<nav class="navi">
 			<div class="navi-wrapper">
-				<div class="nation-view">나라별</div>
-				<div class="genre-view">장르별</div>
-				<div class="score-view">
-					<a>평점순</a>
-				</div>
-				<div class="review-view">
-					<a>후기순</a>
-				</div>
+				<div class="nation-view" style="cursor:pointer;">나라별</div>
+				<div class="genre-view" style="cursor:pointer;">장르별</div>
+				<div class="score-view" OnClick="location.href ='/movie/socreview.do'" style="cursor:pointer;">평점순</div>
+				<div class="review-view" OnClick="location.href ='/movie/reviewview.do'" style="cursor:pointer;">후기순</div>
 				<form class="search-view" action="/movie/searchview.do">
-					<input type="search" class="input_navi-search" name="search" placeholder="영화제목을 검색하세요.">
+					<input type="search" class="input_navi-search" name="search">
 					<button class="btn_navi-search">
 						<i class="fas fa-search"></i>
 					</button>
