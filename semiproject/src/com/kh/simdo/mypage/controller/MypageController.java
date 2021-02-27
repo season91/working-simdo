@@ -35,22 +35,7 @@ public class MypageController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected List parseJson(List<Movie> res) {
-		List list = new ArrayList();
-		Map<String, Object> commandMap = new HashMap<String, Object>();
-		for (int i = 0; i < res.size(); i++) {
-			String json = new Gson().toJson(res.get(i));
-			commandMap = new Gson().fromJson(json, Map.class);
-			list.add(commandMap);
-		}
-		return list;
-	}
-    
-    protected void qnaDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		request.getRequestDispatcher("/WEB-INF/view/mypage/myqnadetail.jsp").forward(request, response);
-	}
-
+   
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -93,5 +78,21 @@ public class MypageController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
+	 protected List parseJson(List<Movie> res) {
+			List list = new ArrayList();
+			Map<String, Object> commandMap = new HashMap<String, Object>();
+			for (int i = 0; i < res.size(); i++) {
+				String json = new Gson().toJson(res.get(i));
+				commandMap = new Gson().fromJson(json, Map.class);
+				list.add(commandMap);
+			}
+			return list;
+		}
+	    
+	    protected void qnaDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String title = request.getParameter("title");
+			request.getRequestDispatcher("/WEB-INF/view/mypage/myqnadetail.jsp").forward(request, response);
+		}
 
 }
