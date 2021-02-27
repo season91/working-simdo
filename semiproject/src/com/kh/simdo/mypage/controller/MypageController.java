@@ -60,7 +60,7 @@ public class MypageController extends HttpServlet {
 		switch (uriArr[uriArr.length-1]) {
 		case "myqnadetail.do" :qnaDetail(request,response); break;
 		case "myqnalist.do": 
-			// 페이징표현해주는 메서드
+			// 페이징 표현해주는 메서드
 			String text = request.getParameter("page");
 			List movieList = new ArrayList();
 			int page = 0;
