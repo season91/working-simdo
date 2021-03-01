@@ -29,7 +29,6 @@ public class MypageController extends HttpServlet {
      */
     public MypageController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
