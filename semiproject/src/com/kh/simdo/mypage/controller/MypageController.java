@@ -50,6 +50,7 @@ public class MypageController extends HttpServlet {
 			int page = 0;
 			if(text == null) {
 				page++;
+				
 			} else {
 				page = Integer.parseInt(text);
 			}
