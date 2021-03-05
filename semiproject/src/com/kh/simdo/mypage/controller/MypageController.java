@@ -17,9 +17,7 @@ import com.kh.simdo.movie.model.vo.Movie;
 /**
  * @author 조아영
  */
-/**
- * Servlet implementation class MypageController
- */
+
 @WebServlet("/mypage/*")
 public class MypageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
