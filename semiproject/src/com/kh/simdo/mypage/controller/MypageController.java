@@ -55,7 +55,6 @@ public class MypageController extends HttpServlet {
 			
 			request.setAttribute("res", movieList);
 			request.setAttribute("page", page);
-			
 			//score 글번호 releaseDate 작성일자 mvTitle 글제목
 			
 			request.getRequestDispatcher("/WEB-INF/view/mypage/myqnalist.jsp").forward(request, response);	
