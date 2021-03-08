@@ -64,9 +64,7 @@ public class MypageController extends HttpServlet {
 			break;
 		}
 		
-		
 	}
-
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
