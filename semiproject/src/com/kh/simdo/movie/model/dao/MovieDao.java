@@ -246,7 +246,6 @@ public class MovieDao {
 		return res;
 	}
 
-	
 	// 영화 DB 넣는 메서드
 	public int insertMovieInfo(Connection conn, Movie movie) {
 		//commit rollback 해야하는 기능
