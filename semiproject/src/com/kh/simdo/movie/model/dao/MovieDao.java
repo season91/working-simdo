@@ -21,7 +21,6 @@ public class MovieDao {
 	
 	JDBCTemplate jdt = JDBCTemplate.getInstance();
 	
-	
 	//영화 상세조회
 	public Movie selectMovieByMvNo(Connection conn, String mvNo){
 		Movie movie = null;
