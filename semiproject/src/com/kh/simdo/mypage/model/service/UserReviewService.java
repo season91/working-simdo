@@ -41,7 +41,6 @@ public class UserReviewService {
 	}
 	
 	/**
-	 * 
 	 * @Author : MinHee
 	 * @Date : 2021. 2. 6.
 	 * @work :
